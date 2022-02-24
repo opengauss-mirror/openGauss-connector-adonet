@@ -1,39 +1,91 @@
-# openGauss-connector-adonet
+# Npgsql - the .NET data provider for PostgreSQL
 
-#### 介绍
-{**以下是 Gitee 平台说明，您可以替换此简介**
-Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用 Gitee 实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+[![stable](https://img.shields.io/nuget/v/Npgsql.svg?label=stable)](https://www.nuget.org/packages/Npgsql/)
+[![next patch](https://img.shields.io/myget/npgsql/v/npgsql.svg?label=next%20patch)](https://www.myget.org/feed/npgsql/package/nuget/Npgsql)
+[![daily builds (vnext)](https://img.shields.io/myget/npgsql-unstable/v/npgsql.svg?label=unstable)](https://www.myget.org/feed/npgsql-unstable/package/nuget/Npgsql)
+[![build](https://img.shields.io/github/workflow/status/npgsql/npgsql/Build)](https://github.com/npgsql/npgsql/actions)
+[![gitter](https://img.shields.io/badge/gitter-join%20chat-brightgreen.svg)](https://gitter.im/npgsql/npgsql)
 
-#### 软件架构
-软件架构说明
+## What is Npgsql?
+
+Npgsql is the open source .NET data provider for PostgreSQL. It allows you to connect and interact with PostgreSQL server using .NET.
+
+For the full documentation, please visit [the Npgsql website](https://www.npgsql.org). For the Entity Framework Core provider that works with this provider, see [Npgsql.EntityFrameworkCore.PostgreSQL](https://github.com/npgsql/efcore.pg).
+
+## Quickstart
+
+Here's a basic code snippet to get you started:
+
+```csharp
+var connString = "Host=myserver;Username=mylogin;Password=mypass;Database=mydatabase";
+
+await using var conn = new NpgsqlConnection(connString);
+await conn.OpenAsync();
+
+// Insert some data
+await using (var cmd = new NpgsqlCommand("INSERT INTO data (some_field) VALUES (@p)", conn))
+{
+    cmd.Parameters.AddWithValue("p", "Hello world");
+    await cmd.ExecuteNonQueryAsync();
+}
+
+// Retrieve all rows
+await using (var cmd = new NpgsqlCommand("SELECT some_field FROM data", conn))
+await using (var reader = await cmd.ExecuteReaderAsync())
+{
+while (await reader.ReadAsync())
+    Console.WriteLine(reader.GetString(0));
+}
+```
+
+## Key features
+
+* High-performance PostgreSQL driver. Regularly figures in the top contenders on the [TechEmpower Web Framework Benchmarks](https://www.techempower.com/benchmarks/).
+* Full support of most PostgreSQL types, including advanced ones such as arrays, enums, ranges, multiranges, composites, JSON, PostGIS and others.
+* Highly-efficient bulk import/export API.
+* Failover, load balancing and general multi-host support.
+* Great integration with Entity Framework Core via [Npgsql.EntityFrameworkCore.PostgreSQL](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL).
+
+For the full documentation, please visit the Npgsql website at [https://www.npgsql.org](https://www.npgsql.org).
 
 
-#### 安装教程
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+## TEST
 
-#### 使用说明
+### BUGTEST
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+Bug1645 -> Npgsql.PostgresException : 42P07: relation "data" already exists
+Bug2278 -> Npgsql.PostgresException : 0A000: DOMAIN is not yet supported.
+Bug2296 -> Npgsql.PostgresException : 42P07: relation "data" already exists
+Bug3649 -> Npgsql.PostgresException : 42601: syntax error at or near "binary"
 
-#### 参与贡献
+Chunked_char_array_write_buffer_encoding_space -> Npgsql.PostgresException : 42601: syntax error at or near "BINARY"
+Chunked_string_write_buffer_encoding_space -> Npgsql.PostgresException : 42601: syntax error at or near "BINARY"
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+###  ConnectionTests
+
+Connect_OptionsFromEnvironment_Succeeds -> SetEnvironmentVariable("PGOPTIONS", "-c default_transaction_isolation=serializable -c default_transaction_deferrable=on -c foo.bar=My"))
+
+### LargeObjectTests 
+
+Npgsql.PostgresException : 0A000: openGauss does not support large object yet
+
+### TypeMapperTests
+
+String_to_citext -> Npgsql.PostgresException : 58P01: could not open extension control file: No such file or directory
 
 
-#### 特技
+StatementOID_legacy_batching -> CREATE TABLE ... WITH OIDS is not yet supported.
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+
+### SchemaTests
+
+Column_schema_data_types -> type line is not yet supported
+
+MetaDataCollections -> type pg_node_tree is not yet supported.
+
+Precision_and_scale -> type pg_node_tree is not yet supported
+
+### NodaTimeTests
+
+Interval_as_Duration_with_months_fails -> function make_interval(months := integer) does not exist
