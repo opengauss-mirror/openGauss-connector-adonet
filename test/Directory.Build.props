@@ -1,0 +1,18 @@
+﻿<Project>
+  <Import Project="../Directory.Build.props" />
+
+  <PropertyGroup>
+    <!-- Tests don't compile with C# 10, see https://github.com/dotnet/roslyn/issues/56167 -->
+    <LangVersion>9.0</LangVersion>
+
+    <TargetFramework>net6.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+
+    <!-- Suppress warnings for [RequiresPreviewFeatures] (<EnablePreviewFeatures> doesn't seem to work across <ProjectReference>) -->
+    <NoWarn>$(NoWarn);CA2252</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GitHubActionsTestLogger" />
+  </ItemGroup>
+</Project>
