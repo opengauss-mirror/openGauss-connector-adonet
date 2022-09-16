@@ -12,7 +12,4 @@
     <NoWarn>$(NoWarn);CA2252</NoWarn>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="GitHubActionsTestLogger" />
-  </ItemGroup>
 </Project>

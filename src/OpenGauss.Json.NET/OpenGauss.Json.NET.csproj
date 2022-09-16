@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<Authors>Microestc</Authors>
+		<Description>Json.NET plugin for OpenGauss, allowing transparent serialization/deserialization of JSON objects directly to and from the database.</Description>
+		<PackageTags>opengauss;postgresql;json;postgres;ado;ado.net;database;sql</PackageTags>
+		<TargetFramework>netstandard2.0</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
+		<PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" PrivateAssets="All" Version="3.3.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\OpenGauss.NET\OpenGauss.NET.csproj" />
+	</ItemGroup>
+</Project>

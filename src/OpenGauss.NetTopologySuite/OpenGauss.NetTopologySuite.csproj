@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Authors>Microestc</Authors>
+    <Description></Description>
+    <PackageTags>opengauss;postgis;spatial;nettopologysuite;nts;</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <NoWarn>$(NoWarn);NU5104</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NetTopologySuite.IO.PostGIS" Version="2.1.0"/>
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" PrivateAssets="All" Version="3.3.3"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../OpenGauss.NET/OpenGauss.NET.csproj" />
+    <ProjectReference Include="../OpenGauss.SourceGenerators/OpenGauss.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<Authors>Microestc</Authors>
+		<Description>GeoJSON plugin for OpenGauss, allowing mapping of PostGIS geometry types to GeoJSON types.</Description>
+		<PackageTags></PackageTags>
+		<TargetFramework>netstandard2.0</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="GeoJSON.Net" Version="1.2.19"/>
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
+		<PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" PrivateAssets="All" Version="3.3.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="../OpenGauss.NET/OpenGauss.NET.csproj" />
+		<ProjectReference Include="../OpenGauss.SourceGenerators/OpenGauss.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+	</ItemGroup>
+</Project>

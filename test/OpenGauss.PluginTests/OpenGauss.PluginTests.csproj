@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit" />
+    <PackageReference Include="NLog" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="NUnit3TestAdapter" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/OpenGauss/OpenGauss.csproj" />
+    <ProjectReference Include="../../src/OpenGauss.Json.NET/OpenGauss.Json.NET.csproj" />
+    <ProjectReference Include="../OpenGauss.Tests/OpenGauss.Tests.csproj" />
+    <ProjectReference Include="../../src/OpenGauss.NetTopologySuite/OpenGauss.NetTopologySuite.csproj" />
+    <ProjectReference Include="../../src/OpenGauss.GeoJSON/OpenGauss.GeoJSON.csproj" />
+  </ItemGroup>
+</Project>
