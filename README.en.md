@@ -1,36 +1,93 @@
-# openGauss-connector-adonet
+# openGauss-connector-adonet 
 
-#### Description
-{**When you're done, you can delete the content in this README and update the file with details for others getting started with your repository**}
+## Migrate from Npgsql - the .NET data provider for PostgreSQL
 
-#### Software Architecture
-Software architecture description
+[![stable](https://img.shields.io/nuget/v/Npgsql.svg?label=stable)](https://www.nuget.org/packages/Npgsql/)
+[![next patch](https://img.shields.io/myget/npgsql/v/npgsql.svg?label=next%20patch)](https://www.myget.org/feed/npgsql/package/nuget/Npgsql)
+[![daily builds (vnext)](https://img.shields.io/myget/npgsql-unstable/v/npgsql.svg?label=unstable)](https://www.myget.org/feed/npgsql-unstable/package/nuget/Npgsql)
+[![build](https://img.shields.io/github/workflow/status/npgsql/npgsql/Build)](https://github.com/npgsql/npgsql/actions)
+[![gitter](https://img.shields.io/badge/gitter-join%20chat-brightgreen.svg)](https://gitter.im/npgsql/npgsql)
 
-#### Installation
+## What is Npgsql?
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+Npgsql is the open source .NET data provider for PostgreSQL. It allows you to connect and interact with PostgreSQL server using .NET.
 
-#### Instructions
+For the full documentation, please visit [the Npgsql website](https://www.npgsql.org). For the Entity Framework Core provider that works with this provider, see [Npgsql.EntityFrameworkCore.PostgreSQL](https://github.com/npgsql/efcore.pg).
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+## Quickstart
 
-#### Contribution
+Here's a basic code snippet to get you started:
 
-1.  Fork the repository
-2.  Create Feat_xxx branch
-3.  Commit your code
-4.  Create Pull Request
+```csharp
+var connString = "Host=myserver;Username=mylogin;Password=mypass;Database=mydatabase";
+
+await using var conn = new NpgsqlConnection(connString);
+await conn.OpenAsync();
+
+// Insert some data
+await using (var cmd = new NpgsqlCommand("INSERT INTO data (some_field) VALUES (@p)", conn))
+{
+    cmd.Parameters.AddWithValue("p", "Hello world");
+    await cmd.ExecuteNonQueryAsync();
+}
+
+// Retrieve all rows
+await using (var cmd = new NpgsqlCommand("SELECT some_field FROM data", conn))
+await using (var reader = await cmd.ExecuteReaderAsync())
+{
+while (await reader.ReadAsync())
+    Console.WriteLine(reader.GetString(0));
+}
+```
+
+## Key features
+
+* High-performance PostgreSQL driver. Regularly figures in the top contenders on the [TechEmpower Web Framework Benchmarks](https://www.techempower.com/benchmarks/).
+* Full support of most PostgreSQL types, including advanced ones such as arrays, enums, ranges, multiranges, composites, JSON, PostGIS and others.
+* Highly-efficient bulk import/export API.
+* Failover, load balancing and general multi-host support.
+* Great integration with Entity Framework Core via [Npgsql.EntityFrameworkCore.PostgreSQL](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL).
+
+For the full documentation, please visit the Npgsql website at [https://www.npgsql.org](https://www.npgsql.org).
 
 
-#### Gitee Feature
 
-1.  You can use Readme\_XXX.md to support different languages, such as Readme\_en.md, Readme\_zh.md
-2.  Gitee blog [blog.gitee.com](https://blog.gitee.com)
-3.  Explore open source project [https://gitee.com/explore](https://gitee.com/explore)
-4.  The most valuable open source project [GVP](https://gitee.com/gvp)
-5.  The manual of Gitee [https://gitee.com/help](https://gitee.com/help)
-6.  The most popular members  [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+## TEST
+
+### BUGTEST
+
+Bug1645 -> Npgsql.PostgresException : 42P07: relation "data" already exists
+Bug2278 -> Npgsql.PostgresException : 0A000: DOMAIN is not yet supported.
+Bug2296 -> Npgsql.PostgresException : 42P07: relation "data" already exists
+Bug3649 -> Npgsql.PostgresException : 42601: syntax error at or near "binary"
+
+Chunked_char_array_write_buffer_encoding_space -> Npgsql.PostgresException : 42601: syntax error at or near "BINARY"
+Chunked_string_write_buffer_encoding_space -> Npgsql.PostgresException : 42601: syntax error at or near "BINARY"
+
+###  ConnectionTests
+
+Connect_OptionsFromEnvironment_Succeeds -> SetEnvironmentVariable("PGOPTIONS", "-c default_transaction_isolation=serializable -c default_transaction_deferrable=on -c foo.bar=My"))
+
+### LargeObjectTests 
+
+Npgsql.PostgresException : 0A000: openGauss does not support large object yet
+
+### TypeMapperTests
+
+String_to_citext -> Npgsql.PostgresException : 58P01: could not open extension control file: No such file or directory
+
+
+StatementOID_legacy_batching -> CREATE TABLE ... WITH OIDS is not yet supported.
+
+
+### SchemaTests
+
+Column_schema_data_types -> type line is not yet supported
+
+MetaDataCollections -> type pg_node_tree is not yet supported.
+
+Precision_and_scale -> type pg_node_tree is not yet supported
+
+### NodaTimeTests
+
+Interval_as_Duration_with_months_fails -> function make_interval(months := integer) does not exist
