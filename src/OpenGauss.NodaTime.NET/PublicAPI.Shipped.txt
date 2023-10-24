@@ -1,0 +1,3 @@
+﻿#nullable enable
+OpenGauss.NET.OpenGaussNodaTimeExtensions
+static OpenGauss.NET.OpenGaussNodaTimeExtensions.UseNodaTime(this OpenGauss.NET.TypeMapping.IOpenGaussTypeMapper! mapper) -> OpenGauss.NET.TypeMapping.IOpenGaussTypeMapper!

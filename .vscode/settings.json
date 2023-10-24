@@ -1,4 +1,0 @@
-{
-  "omnisharp.defaultLaunchSolution": "Npgsql.sln",
-  "dotnet-test-explorer.testProjectPath": "**/*.Tests.csproj"
-}

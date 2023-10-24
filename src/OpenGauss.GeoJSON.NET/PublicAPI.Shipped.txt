@@ -1,0 +1,8 @@
+﻿#nullable enable
+OpenGauss.NET.GeoJSONOptions
+OpenGauss.NET.GeoJSONOptions.BoundingBox = 1 -> OpenGauss.NET.GeoJSONOptions
+OpenGauss.NET.GeoJSONOptions.LongCRS = 4 -> OpenGauss.NET.GeoJSONOptions
+OpenGauss.NET.GeoJSONOptions.None = 0 -> OpenGauss.NET.GeoJSONOptions
+OpenGauss.NET.GeoJSONOptions.ShortCRS = 2 -> OpenGauss.NET.GeoJSONOptions
+OpenGauss.NET.OpenGaussGeoJSONExtensions
+static OpenGauss.NET.OpenGaussGeoJSONExtensions.UseGeoJson(this OpenGauss.NET.TypeMapping.IOpenGaussTypeMapper! mapper, OpenGauss.NET.GeoJSONOptions options = OpenGauss.NET.GeoJSONOptions.None, bool geographyAsDefault = false) -> OpenGauss.NET.TypeMapping.IOpenGaussTypeMapper!

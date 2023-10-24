@@ -1,16 +1,16 @@
-# Npgsql - the .NET data provider for PostgreSQL
+# OpenGauss - the .NET data provider for PostgreSQL
 
-[![stable](https://img.shields.io/nuget/v/Npgsql.svg?label=stable)](https://www.nuget.org/packages/Npgsql/)
-[![next patch](https://img.shields.io/myget/npgsql/v/npgsql.svg?label=next%20patch)](https://www.myget.org/feed/npgsql/package/nuget/Npgsql)
-[![daily builds (vnext)](https://img.shields.io/myget/npgsql-unstable/v/npgsql.svg?label=unstable)](https://www.myget.org/feed/npgsql-unstable/package/nuget/Npgsql)
-[![build](https://img.shields.io/github/workflow/status/npgsql/npgsql/Build)](https://github.com/npgsql/npgsql/actions)
-[![gitter](https://img.shields.io/badge/gitter-join%20chat-brightgreen.svg)](https://gitter.im/npgsql/npgsql)
+[![stable](https://img.shields.io/nuget/v/OpenGauss.svg?label=stable)](https://www.nuget.org/packages/OpenGauss/)
+[![next patch](https://img.shields.io/myget/opengauss/v/opengauss.svg?label=next%20patch)](https://www.myget.org/feed/opengauss/package/nuget/OpenGauss)
+[![daily builds (vnext)](https://img.shields.io/myget/opengauss-unstable/v/opengauss.svg?label=unstable)](https://www.myget.org/feed/opengauss-unstable/package/nuget/OpenGauss)
+[![build](https://img.shields.io/github/workflow/status/opengauss/opengauss/Build)](https://github.com/opengauss/opengauss/actions)
+[![gitter](https://img.shields.io/badge/gitter-join%20chat-brightgreen.svg)](https://gitter.im/opengauss/opengauss)
 
-## What is Npgsql?
+## What is OpenGauss?
 
-Npgsql is the open source .NET data provider for PostgreSQL. It allows you to connect and interact with PostgreSQL server using .NET.
+OpenGauss is the open source .NET data provider for PostgreSQL. It allows you to connect and interact with PostgreSQL server using .NET.
 
-For the full documentation, please visit [the Npgsql website](https://www.npgsql.org). For the Entity Framework Core provider that works with this provider, see [Npgsql.EntityFrameworkCore.PostgreSQL](https://github.com/npgsql/efcore.pg).
+For the full documentation, please visit [the OpenGauss website](https://www.opengauss.org). For the Entity Framework Core provider that works with this provider, see [OpenGauss.EntityFrameworkCore.PostgreSQL](https://github.com/opengauss/efcore.pg).
 
 ## Quickstart
 
@@ -19,18 +19,18 @@ Here's a basic code snippet to get you started:
 ```csharp
 var connString = "Host=myserver;Username=mylogin;Password=mypass;Database=mydatabase";
 
-await using var conn = new NpgsqlConnection(connString);
+await using var conn = new OpenGaussConnection(connString);
 await conn.OpenAsync();
 
 // Insert some data
-await using (var cmd = new NpgsqlCommand("INSERT INTO data (some_field) VALUES (@p)", conn))
+await using (var cmd = new OpenGaussCommand("INSERT INTO data (some_field) VALUES (@p)", conn))
 {
     cmd.Parameters.AddWithValue("p", "Hello world");
     await cmd.ExecuteNonQueryAsync();
 }
 
 // Retrieve all rows
-await using (var cmd = new NpgsqlCommand("SELECT some_field FROM data", conn))
+await using (var cmd = new OpenGaussCommand("SELECT some_field FROM data", conn))
 await using (var reader = await cmd.ExecuteReaderAsync())
 {
 while (await reader.ReadAsync())
@@ -44,9 +44,9 @@ while (await reader.ReadAsync())
 * Full support of most PostgreSQL types, including advanced ones such as arrays, enums, ranges, multiranges, composites, JSON, PostGIS and others.
 * Highly-efficient bulk import/export API.
 * Failover, load balancing and general multi-host support.
-* Great integration with Entity Framework Core via [Npgsql.EntityFrameworkCore.PostgreSQL](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL).
+* Great integration with Entity Framework Core via [OpenGauss.EntityFrameworkCore.PostgreSQL](https://www.nuget.org/packages/OpenGauss.EntityFrameworkCore.PostgreSQL).
 
-For the full documentation, please visit the Npgsql website at [https://www.npgsql.org](https://www.npgsql.org).
+For the full documentation, please visit the OpenGauss website at [https://www.opengauss.org](https://www.opengauss.org).
 
 
 
@@ -54,13 +54,13 @@ For the full documentation, please visit the Npgsql website at [https://www.npgs
 
 ### BUGTEST
 
-Bug1645 -> Npgsql.PostgresException : 42P07: relation "data" already exists
-Bug2278 -> Npgsql.PostgresException : 0A000: DOMAIN is not yet supported.
-Bug2296 -> Npgsql.PostgresException : 42P07: relation "data" already exists
-Bug3649 -> Npgsql.PostgresException : 42601: syntax error at or near "binary"
+Bug1645 -> OpenGauss.PostgresException : 42P07: relation "data" already exists
+Bug2278 -> OpenGauss.PostgresException : 0A000: DOMAIN is not yet supported.
+Bug2296 -> OpenGauss.PostgresException : 42P07: relation "data" already exists
+Bug3649 -> OpenGauss.PostgresException : 42601: syntax error at or near "binary"
 
-Chunked_char_array_write_buffer_encoding_space -> Npgsql.PostgresException : 42601: syntax error at or near "BINARY"
-Chunked_string_write_buffer_encoding_space -> Npgsql.PostgresException : 42601: syntax error at or near "BINARY"
+Chunked_char_array_write_buffer_encoding_space -> OpenGauss.PostgresException : 42601: syntax error at or near "BINARY"
+Chunked_string_write_buffer_encoding_space -> OpenGauss.PostgresException : 42601: syntax error at or near "BINARY"
 
 ###  ConnectionTests
 
@@ -68,11 +68,11 @@ Connect_OptionsFromEnvironment_Succeeds -> SetEnvironmentVariable("PGOPTIONS", "
 
 ### LargeObjectTests 
 
-Npgsql.PostgresException : 0A000: openGauss does not support large object yet
+OpenGauss.PostgresException : 0A000: openGauss does not support large object yet
 
 ### TypeMapperTests
 
-String_to_citext -> Npgsql.PostgresException : 58P01: could not open extension control file: No such file or directory
+String_to_citext -> OpenGauss.PostgresException : 58P01: could not open extension control file: No such file or directory
 
 
 StatementOID_legacy_batching -> CREATE TABLE ... WITH OIDS is not yet supported.
