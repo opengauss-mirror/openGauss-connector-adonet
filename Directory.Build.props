@@ -9,7 +9,7 @@
 		<Copyright>Copyright 2022 © The OpenGauss Development Team</Copyright>
 		<Company>OpenGauss</Company>
 		<PackageLicenseExpression>PostgreSQL</PackageLicenseExpression>
-		<PackageProjectUrl>https://github.com/opengauss/opengauss</PackageProjectUrl>
+		<PackageProjectUrl>https://gitee.com/opengauss/openGauss-connector-adonet</PackageProjectUrl>
 		<PackageIcon>postgresql.png</PackageIcon>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<IncludeSymbols>true</IncludeSymbols>
