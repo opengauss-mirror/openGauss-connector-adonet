@@ -10,7 +10,7 @@
 		<Company>OpenGauss</Company>
 		<PackageLicenseExpression>MulanPSL2</PackageLicenseExpression>
 		<PackageProjectUrl>https://gitee.com/opengauss/openGauss-connector-adonet</PackageProjectUrl>
-		<PackageIcon>postgresql.png</PackageIcon>
+		<PackageIcon>openGauss.png</PackageIcon>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -27,7 +27,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="$(MSBuildThisFileDirectory)postgresql.png" Pack="true" PackagePath="" />
+		<None Include="$(MSBuildThisFileDirectory)openGauss.png" Pack="true" PackagePath="" />
 	</ItemGroup>
 
 </Project>
