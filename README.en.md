@@ -54,6 +54,21 @@ For the full documentation, please visit the Npgsql website at [https://www.npgs
 
 ## TEST
 
+### TestUser
+
+```sql
+create user gaussdb with password '<YOUR_PASSWORD>' sysadmin;
+create database dotnet_a DBCOMPATIBILITY='A';
+create database dotnet_b DBCOMPATIBILITY='B';
+create database dotnet_pg DBCOMPATIBILITY='PG';
+\c dotnet_a;
+create schema gaussdb;
+\c dotnet_b
+create schema gaussdb;
+\c dotnet_pg
+create schema gaussdb;
+```
+
 ### BUGTEST
 
 Bug1645 -> Npgsql.PostgresException : 42P07: relation "data" already exists
